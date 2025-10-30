@@ -1,18 +1,4 @@
-import { Request, Response, NextFunction } from "express";
-
-// 扩展类型定义
-declare module "express-serve-static-core" {
-  interface Response {
-    success: (data?: any) => void;
-    error: (msg?: string, code?: number) => void;
-  }
-}
-
-export function responseEnhancer(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
+export function responseEnhancer(req: any, res: any, next: any) {
   res.success = function (data?: any) {
     this.json({
       code: 200,
