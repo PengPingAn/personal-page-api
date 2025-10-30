@@ -1,7 +1,9 @@
-import { Router } from "express";
+import { Router, Request, Response } from "express";
 import axios from "axios";
 
-const router: any = Router();
+// 如果你后续有自定义 res 方法，可以扩展类型
+// 这里先用默认 Response
+const router: Router = Router();
 
 // 这里是模拟代理 .NET API
 router.get("/", async (req: Request, res: Response) => {
