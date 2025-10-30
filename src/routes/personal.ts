@@ -1,18 +1,13 @@
-import express, { Router } from "express";
-import type { Request, Response } from "express";
+import express from "express";
+import type { Request } from "express";
+import type { CustomResponse } from "../types/customResponse";
 import { getDB } from "../db/db";
 
-// 扩展 Response 类型，增加 success 和 error 方法
-export interface CustomResponse extends Response {
-  success: (data?: any) => void;
-  error: (msg?: string, code?: number) => void;
-}
-
-const router: Router = express.Router();
+const router = express.Router();
 
 router.get("/get_personal", async (_req: Request, res: CustomResponse) => {
   const db = await getDB("personal", { name: "", bio: "", projects: [] });
-  res.success(db.data);
+  res.success(db.data); // ✅ TS 不报错
 });
 
 router.post("/update_personal", async (req: Request, res: CustomResponse) => {
