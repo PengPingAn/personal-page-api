@@ -3,7 +3,7 @@ import { getDB } from "../db/db.js";
 
 const router: any = express.Router();
 
-router.get("/get_personal", async (_req: any, res: any) => {
+router.get("/get_personal", async (_req: Request, res: Response) => {
   const db = await getDB("personal", { name: "", bio: "", projects: [] });
   res.success(db.data);
 });

@@ -4,7 +4,7 @@ import axios from "axios";
 const router: any = Router();
 
 // 这里是模拟代理 .NET API
-router.get("/", async (req: any, res: any) => {
+router.get("/", async (req: Request, res: Response) => {
   try {
     // 请求你的 .NET API
     const response = await axios.get(
