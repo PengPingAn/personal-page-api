@@ -1,6 +1,6 @@
 import express, { Router } from "express";
 import type { Request, Response } from "express";
-import { getDB } from "../db/db.js";
+import { getDB } from "../db/db.ts";
 
 // 扩展 Response 类型，增加 success 和 error 方法
 interface CustomResponse extends Response {
