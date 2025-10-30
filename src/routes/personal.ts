@@ -1,4 +1,5 @@
-import express, { Request, Response, Router } from "express";
+import express, { Router } from "express";
+import type { Request, Response } from "express";
 import { getDB } from "../db/db.js";
 
 // 扩展 Response 类型，增加 success 和 error 方法
