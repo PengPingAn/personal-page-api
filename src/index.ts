@@ -1,16 +1,17 @@
 import express from "express";
-import personalRouter from "./routes/personal";
-import articlesRouter from "./routes/articles";
-import { responseEnhancer } from "./middleware/response";
+import personalRouter from "./routes/personal.js"; // 注意 .js 部署用
+import articlesRouter from "./routes/articles.js";
+import { responseEnhancer } from "./middleware/response.js";
 
 const app = express();
 app.use(express.json());
-app.use(responseEnhancer);
+app.use(responseEnhancer); // ⚠️ 这里直接传原生 Response
+
 app.use("/personal", personalRouter);
 app.use("/articles", articlesRouter);
 
-let port = 5000; // 默认端口
-const maxPort = 5100; // 最大尝试端口
+let port = process.env.PORT ? Number(process.env.PORT) : 5000;
+const maxPort = 5100;
 
 function startServer() {
   const server = app.listen(port, () => {

@@ -1,14 +1,14 @@
-import express from "express";
+import { Router, Request, Response } from "express";
 import { getDB } from "../db/db";
 
-const router = express.Router();
+const router = Router();
 
-router.get("/get_personal", async (_req, res) => {
+router.get("/get_personal", async (_req: Request, res: Response) => {
   const db = await getDB("personal", { name: "", bio: "", projects: [] });
-  (res as any).success(db.data); // 类型断言，TS 不会报错
+  res.success(db.data); // 这里仍然能用 success
 });
 
-router.post("/update_personal", async (req, res) => {
+router.post("/update_personal", async (req: Request, res: Response) => {
   try {
     const db = await getDB("personal", { name: "", bio: "", projects: [] });
     const { name, bio, projects } = req.body;
@@ -18,10 +18,10 @@ router.post("/update_personal", async (req, res) => {
     if (projects !== undefined) db.data!.projects = projects;
 
     await db.write();
-    (res as any).success(db.data);
+    res.success(db.data);
   } catch (err) {
     console.error(err);
-    (res as any).error("写入失败");
+    res.error("写入失败");
   }
 });
 

@@ -1,9 +1,16 @@
-import type { Request, NextFunction } from "express";
-import type { CustomResponse } from "../types/customResponse.ts";
+import type { Request, Response, NextFunction } from "express";
+
+// 扩展 Response 类型
+declare module "express-serve-static-core" {
+  interface Response {
+    success: (data?: any) => void;
+    error: (msg?: string, code?: number) => void;
+  }
+}
 
 export function responseEnhancer(
   req: Request,
-  res: CustomResponse,
+  res: Response,
   next: NextFunction
 ) {
   res.success = function (data?: any) {
