@@ -1,18 +1,17 @@
-import { Router } from "express";
-import type { Request, Response } from "express"; // 类型-only 导入
+import { Router, Request, Response } from "express";
 import axios from "axios";
 
-const router: Router = Router();
+const router = Router();
 
-router.get("/", async (req: Request, res: Response) => {
+router.get("/", async (_req: Request, res: Response) => {
   try {
     const response = await axios.get(
       "http://localhost:5002/api/WebArticles/get_home_articles"
     );
-    res.json(response.data);
+    res.success(response.data);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Failed to fetch .NET API data" });
+    res.error("Failed to fetch .NET API data");
   }
 });
 

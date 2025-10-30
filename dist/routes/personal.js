@@ -8,7 +8,7 @@ const db_1 = require("../db/db");
 const router = express_1.default.Router();
 router.get("/get_personal", async (_req, res) => {
     const db = await (0, db_1.getDB)("personal", { name: "", bio: "", projects: [] });
-    res.success(db.data);
+    res.success(db.data); // 类型断言，TS 不会报错
 });
 router.post("/update_personal", async (req, res) => {
     try {

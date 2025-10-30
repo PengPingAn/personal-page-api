@@ -6,14 +6,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const axios_1 = __importDefault(require("axios"));
 const router = (0, express_1.Router)();
-router.get("/", async (req, res) => {
+router.get("/", async (_req, res) => {
     try {
         const response = await axios_1.default.get("http://localhost:5002/api/WebArticles/get_home_articles");
-        res.json(response.data);
+        res.success(response.data);
     }
     catch (err) {
         console.error(err);
-        res.status(500).json({ error: "Failed to fetch .NET API data" });
+        res.error("Failed to fetch .NET API data");
     }
 });
 exports.default = router;
