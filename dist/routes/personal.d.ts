@@ -1,9 +1,3 @@
-import { Router } from "express";
-import type { Response } from "express";
-export interface CustomResponse extends Response {
-    success: (data?: any) => void;
-    error: (msg?: string, code?: number) => void;
-}
-declare const router: Router;
+declare const router: import("express-serve-static-core").Router;
 export default router;
 //# sourceMappingURL=personal.d.ts.map
