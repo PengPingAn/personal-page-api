@@ -1,7 +1,7 @@
 import express from "express";
-import personalRouter from "./routes/personal.ts";
-import articlesRouter from "./routes/articles.ts";
-import { responseEnhancer } from "./middleware/response.ts";
+import personalRouter from "./routes/personal.js";
+import articlesRouter from "./routes/articles.js";
+import { responseEnhancer } from "./middleware/response.js";
 
 const app = express();
 app.use(express.json());
