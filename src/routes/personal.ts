@@ -3,9 +3,9 @@ import type { Request, Response } from "express";
 import { getDB } from "../db/db";
 
 // 扩展 Response 类型，增加 success 和 error 方法
-interface CustomResponse extends Response {
-  success: (data: any) => void;
-  error: (msg: string) => void;
+export interface CustomResponse extends Response {
+  success: (data?: any) => void;
+  error: (msg?: string, code?: number) => void;
 }
 
 const router: Router = express.Router();

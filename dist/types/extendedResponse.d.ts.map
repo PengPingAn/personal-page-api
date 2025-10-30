@@ -1,0 +1,1 @@
+{"version":3,"file":"extendedResponse.d.ts","sourceRoot":"","sources":["../../src/types/extendedResponse.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,QAAQ,EAAE,MAAM,SAAS,CAAC;AAExC,MAAM,MAAM,gBAAgB,GAAG,QAAQ,GAAG;IACxC,OAAO,EAAE,CAAC,IAAI,CAAC,EAAE,GAAG,KAAK,IAAI,CAAC;IAC9B,KAAK,EAAE,CAAC,GAAG,CAAC,EAAE,MAAM,EAAE,IAAI,CAAC,EAAE,MAAM,KAAK,IAAI,CAAC;CAC9C,CAAC"}
