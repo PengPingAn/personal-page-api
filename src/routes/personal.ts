@@ -1,9 +1,9 @@
 import express from "express";
-import { getDB } from "../db/db";
+import { getDB } from "../db/db.ts";
 
-const router = express.Router();
+const router: any = express.Router();
 
-router.get("/get_personal", async (_req, res) => {
+router.get("/get_personal", async (_req: any, res: any) => {
   const db = await getDB("personal", { name: "", bio: "", projects: [] });
   res.success(db.data);
 });

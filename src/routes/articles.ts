@@ -1,10 +1,10 @@
 import { Router } from "express";
 import axios from "axios";
 
-const router = Router();
+const router: any = Router();
 
 // 这里是模拟代理 .NET API
-router.get("/", async (req, res) => {
+router.get("/", async (req: any, res: any) => {
   try {
     // 请求你的 .NET API
     const response = await axios.get(
