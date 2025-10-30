@@ -1,0 +1,10 @@
+{
+  "name": "平安",
+  "bio": "喜欢 Vue 3 和 C#",
+  "projects": [
+    {
+      "title": "个人主页",
+      "link": "https://personal-page-pied-omega.vercel.app/"
+    }
+  ]
+}
