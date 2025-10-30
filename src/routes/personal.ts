@@ -5,12 +5,12 @@ import { getDB } from "../db/db";
 
 const router = express.Router();
 
-router.get("/get_personal", async (_req: Request, res: CustomResponse) => {
+router.get("/get_personal", async (_req, res) => {
   const db = await getDB("personal", { name: "", bio: "", projects: [] });
-  res.success(db.data); // ✅ TS 不报错
+  (res as CustomResponse).success(db.data);
 });
 
-router.post("/update_personal", async (req: Request, res: CustomResponse) => {
+router.post("/update_personal", async (req, res) => {
   try {
     const db = await getDB("personal", { name: "", bio: "", projects: [] });
     const { name, bio, projects } = req.body;
@@ -20,10 +20,10 @@ router.post("/update_personal", async (req: Request, res: CustomResponse) => {
     if (projects !== undefined) db.data!.projects = projects;
 
     await db.write();
-    res.success(db.data);
+    (res as CustomResponse).success(db.data);
   } catch (err) {
     console.error(err);
-    res.error("写入失败");
+    (res as CustomResponse).error("写入失败");
   }
 });
 
