@@ -46,6 +46,7 @@
     "rootDir": "./src",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
     // "strictFunctionTypes": false
   },
   "include": ["src", "src/types"]
