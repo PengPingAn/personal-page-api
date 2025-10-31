@@ -1,21 +1,49 @@
 import express from "express";
-import personalRouter from "./routes/personal.ts"; // 注意 .js 部署用
-import articlesRouter from "./routes/articles.ts";
-import { responseEnhancer } from "./middleware/response.ts";
+import cors from "cors"; // ✅ 引入 cors 包
+import personalRouter from "./routes/personal"; // 注意 .ts 或 .js
+import articlesRouter from "./routes/articles";
+import auth from "./routes/auth";
+import jsonFile from "./routes/jsonFiles";
+import { responseEnhancer } from "./middleware/response";
 
 const app = express();
 app.use(express.json());
-app.use(responseEnhancer); // ⚠️ 这里直接传原生 Response
+app.use(responseEnhancer);
 
-app.use("/personal", personalRouter);
-app.use("/articles", articlesRouter);
+// 使用 cors 中间件
+app.use(
+  cors({
+    origin: ["http://localhost:3000"], // 允许的域名
+    methods: ["GET", "POST", "PUT", "DELETE"], // 允许的请求方法
+    credentials: true, // 是否允许携带 cookie
+    allowedHeaders: [
+      "Content-Type",
+      "Authorization",
+      "Cache-Control",
+      "Pragma",
+    ], // 允许的请求头
+  })
+);
 
+// --- 统一 API 前缀 ---
+const apiRouter = express.Router();
+
+// 挂载具体路由
+apiRouter.use("/personal", personalRouter);
+apiRouter.use("/articles", articlesRouter);
+apiRouter.use("/auth", auth);
+apiRouter.use("/file", jsonFile);
+
+// 挂载到 /api
+app.use("/api", apiRouter);
+
+// --- 启动服务器 ---
 let port = process.env.PORT ? Number(process.env.PORT) : 5000;
 const maxPort = 5100;
 
 function startServer() {
   const server = app.listen(port, () => {
-    console.log(`API running at http://localhost:${port}`);
+    console.log(`API running at http://localhost:${port}/api`);
   });
 
   server.on("error", (err: any) => {

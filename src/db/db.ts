@@ -7,12 +7,16 @@ import { existsSync, mkdirSync, writeFileSync } from "fs";
  * 通用 DB 获取方法
  * @param name 文件名（不带后缀）
  * @param defaults 默认数据结构
+ * @param useSubFolder 是否放到 json 子文件夹，默认 true
  */
 export async function getDB<T extends object>(
   name: string,
-  defaults: T
+  defaults: T,
+  useSubFolder = true
 ): Promise<Low<T>> {
-  const dir = join(__dirname); // 存放位置（你可以改成 join(__dirname, '../data')）
+  // 默认放到 src/db/json
+  const dir = useSubFolder ? join(__dirname, "json") : join(__dirname);
+
   if (!existsSync(dir)) mkdirSync(dir, { recursive: true });
 
   const file = join(dir, `${name}.json`);
