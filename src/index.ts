@@ -13,7 +13,7 @@ app.use(responseEnhancer);
 // 使用 cors 中间件
 app.use(
   cors({
-    origin: ["http://localhost:3000"], // 允许的域名
+    origin: true, //["http://localhost:3000"] 允许的域名
     methods: ["GET", "POST", "PUT", "DELETE"], // 允许的请求方法
     credentials: true, // 是否允许携带 cookie
     allowedHeaders: [
