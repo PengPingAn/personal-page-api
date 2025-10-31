@@ -45,7 +45,8 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "strictFunctionTypes": false
   },
   "include": ["src", "src/types"]
 }
