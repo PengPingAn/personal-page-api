@@ -1,7 +1,7 @@
 import { Router, Request, Response } from "express";
 import { getDB } from "../db/db.ts";
 
-const router = Router();
+const router: import("express").Router = Router();
 
 router.get("/get_personal", async (_req: Request, res: Response) => {
   const db = await getDB("personal", { name: "", bio: "", projects: [] });
