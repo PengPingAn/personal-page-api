@@ -36,7 +36,7 @@
     "strict": true,
     "jsx": "react-jsx",
     "verbatimModuleSyntax": false,
-    "allowImportingTsExtensions": true,
+    "allowImportingTsExtensions": false,
     "isolatedModules": true,
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
@@ -45,7 +45,9 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": false,
+    // "strictFunctionTypes": false
   },
   "include": ["src", "src/types"]
 }

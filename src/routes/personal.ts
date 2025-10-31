@@ -2,7 +2,7 @@ import { Router, Request, Response } from "express";
 import { getDB } from "../db/db.ts";
 import { authMiddleware } from "../middleware/authMiddleware";
 
-const router = Router();
+const router: import("express").Router = Router();
 
 router.get(
   "/get_personal",

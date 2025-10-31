@@ -1,7 +1,7 @@
 import { Router, Request, Response } from "express";
 import axios from "axios";
 
-const router = Router();
+const router: import("express").Router = Router();
 
 router.get("/", async (_req: Request, res: Response) => {
   try {
