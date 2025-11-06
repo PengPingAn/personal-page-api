@@ -1,8 +1,11 @@
 import { Low } from "lowdb";
 import { JSONFile } from "lowdb/node";
-import { join } from "path";
 import { existsSync, mkdirSync, writeFileSync } from "fs";
+import { join, dirname } from "path";
+import { fileURLToPath } from "url";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 /**
  * 通用 DB 获取方法
  * @param name 文件名（不带后缀）
