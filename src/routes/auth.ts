@@ -31,10 +31,14 @@ router.post("/login", async (req: Request, res: Response) => {
     if (!match) return res.error("密码错误");
 
     // 获取客户端 IP 和当前时间
+    const xForwardedFor = req.headers["x-forwarded-for"];
     const ip =
-      req.headers["x-forwarded-for"]?.split(",")[0] ||
-      req.connection.remoteAddress ||
-      req.socket.remoteAddress;
+      (Array.isArray(xForwardedFor)
+        ? xForwardedFor[0]
+        : xForwardedFor?.split(",")[0]) ||
+      req.connection?.remoteAddress ||
+      req.socket?.remoteAddress;
+
     const currentTime = new Date().toISOString();
 
     // 更新登录信息
