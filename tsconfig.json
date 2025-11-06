@@ -9,7 +9,7 @@
     // See also https://aka.ms/tsconfig/module
     "module": "nodenext",
     "target": "esnext",
-    "types": [],
+    // "types": [],
     // For nodejs:
     // "lib": ["esnext"],
     // "types": ["node"],
@@ -47,7 +47,10 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": false,
-    // "strictFunctionTypes": false
+    "typeRoots": ["./node_modules/@types", "./types"]
   },
-  "include": ["src", "src/types"]
+  "include": ["src/**/*", "types/**/*"],
+  "ts-node": {
+    "files": true // 增加这一条配置即可，其他同默认配置
+  }
 }

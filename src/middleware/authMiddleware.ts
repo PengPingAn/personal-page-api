@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction, RequestHandler } from "express";
 import jwt from "jsonwebtoken";
 
 const JWT_SECRET = "your_jwt_secret"; // 和登录一致，部署时用环境变量

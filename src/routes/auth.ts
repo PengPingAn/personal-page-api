@@ -1,58 +1,58 @@
+// userRouter.ts
 import { Router, Request, Response } from "express";
-import { getDB } from "../db/db.ts"; // 简单 JSON DB
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { getDB } from "../db/db";
+import { User, Login, UserInfo, UserPwd, LoginInfo } from "../types/user"; // 引入优化后的类型
+import { authMiddleware } from "../middleware/authMiddleware";
 
-interface User {
-  account: string;
-  password: string;
-}
-
-const router = Router();
-const JWT_SECRET = "your_jwt_secret"; // ⚠️ 部署时请放环境变量
-
-// --- 注册接口（可选） ---
-router.post("/register", async (req: Request, res: Response) => {
-  try {
-    const db = await getDB<User>("user", { account: "admin", password: "" });
-    const { account, password } = req.body;
-
-    if (!account || !password) return res.error("用户名和密码不能为空");
-
-    // 单用户判断：如果已经有用户名且不同，则提示已存在
-    if (db.data!.account && db.data!.account !== account)
-      return res.error("已存在用户");
-
-    // 加密密码
-    const hashed = await bcrypt.hash(password, 10);
-    db.data!.account = account;
-    db.data!.password = hashed;
-    await db.write();
-
-    res.success({ account });
-  } catch (err) {
-    console.error(err);
-    res.error("注册失败");
-  }
-});
+const router: Router = Router();
+const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret"; // 使用环境变量存储 JWT 密钥
 
 // --- 登录接口 ---
 router.post("/login", async (req: Request, res: Response) => {
   try {
-    const db = await getDB<User>("user", { account: "admin", password: "" });
-    const { account, password } = req.body;
+    const { account, password }: Login = req.body;
 
     if (!account || !password) return res.error("用户名和密码不能为空");
+
+    // 获取用户数据
+    const db = await getDB<Login>("user", {
+      account: "",
+      password: "",
+      lastIp: "",
+      lastTime: "",
+      head: "",
+    });
 
     if (account !== db.data!.account) return res.error("用户不存在");
 
     const match = await bcrypt.compare(password, db.data!.password);
     if (!match) return res.error("密码错误");
 
-    // 生成 JWT
-    const token = jwt.sign({ account }, JWT_SECRET, { expiresIn: "7d" });
+    // 获取客户端 IP 和当前时间
+    const ip =
+      req.headers["x-forwarded-for"]?.split(",")[0] ||
+      req.connection.remoteAddress ||
+      req.socket.remoteAddress;
+    const currentTime = new Date().toISOString();
 
-    res.success({ token, account });
+    // 更新登录信息
+    db.data!.lastIp = ip as string;
+    db.data!.lastTime = currentTime;
+    await db.write();
+
+    const head = db.data!.head;
+    // 生成 JWT Token
+    const token = jwt.sign({ userInfo: db.data }, JWT_SECRET, {
+      expiresIn: "7d",
+    });
+
+    res.success({
+      token,
+      account,
+      head,
+    });
   } catch (err) {
     console.error(err);
     res.error("登录失败");
@@ -60,38 +60,91 @@ router.post("/login", async (req: Request, res: Response) => {
 });
 
 // --- 获取当前用户信息 ---
-router.get("/me", async (req: Request, res: Response) => {
+router.get("/me", authMiddleware, async (req: Request, res: Response) => {
   try {
-    const authHeader = req.headers.authorization;
-    if (!authHeader) return res.error("未登录", 401);
+    // 获取用户数据（假设 JSON 文件存储用户信息在 "user"）
+    const db = await getDB<User>("user", {
+      account: "admin",
+      head: "",
+      lastIp: "",
+      lastTime: "",
+      email: "",
+      nickName: "",
+    });
 
-    const token = authHeader.split(" ")[1];
-    if (!token) return res.error("未登录", 401);
+    if (!db.data) return res.error("用户不存在");
 
-    const decoded: any = jwt.verify(token, JWT_SECRET);
-    res.success({ account: decoded.account });
-  } catch (err) {
-    res.error("Token 无效", 401);
-  }
-});
+    // 只取 User 需要的字段
+    const userInfo: User = {
+      account: db.data.account,
+      head: db.data.head,
+      email: db.data.email,
+      nickName: db.data.nickName,
+      lastIp: db.data.lastIp,
+      lastTime: db.data.lastTime,
+    };
 
-// --- 修改密码（可选） ---
-router.post("/update_password", async (req: Request, res: Response) => {
-  try {
-    const db = await getDB<User>("user", { account: "admin", password: "" });
-    const { oldPassword, newPassword } = req.body;
-
-    const match = await bcrypt.compare(oldPassword, db.data!.password);
-    if (!match) return res.error("旧密码错误");
-
-    db.data!.password = await bcrypt.hash(newPassword, 10);
-    await db.write();
-
-    res.success("密码修改成功");
+    res.success(userInfo);
   } catch (err) {
     console.error(err);
-    res.error("修改失败");
+    res.error("获取用户信息失败", 500);
   }
 });
+
+// --- 修改密码 ---
+router.post(
+  "/update_password",
+  authMiddleware,
+  async (req: Request, res: Response) => {
+    try {
+      const {
+        oldPassword,
+        newPassword,
+      }: { oldPassword: string; newPassword: string } = req.body;
+      const db = await getDB<UserPwd>("user", { password: "" });
+
+      const match = await bcrypt.compare(oldPassword, db.data!.password);
+      if (!match) return res.error("旧密码错误");
+
+      db.data!.password = await bcrypt.hash(newPassword, 10);
+      await db.write();
+
+      res.success("密码修改成功");
+    } catch (err) {
+      console.error(err);
+      res.error("修改失败");
+    }
+  }
+);
+
+// --- 修改用户信息 ---
+router.post(
+  "/update_info",
+  authMiddleware,
+  async (req: Request, res: Response) => {
+    try {
+      const { account, email, head, nickName }: UserInfo = req.body;
+
+      const db = await getDB<UserInfo>("user", {
+        account: "",
+        email: "",
+        head: "",
+        nickName: "",
+      });
+
+      // 更新用户信息
+      db.data!.account = account;
+      db.data!.email = email;
+      db.data!.head = head;
+      db.data!.nickName = nickName;
+      await db.write();
+
+      res.success("信息修改成功");
+    } catch (err) {
+      console.error(err);
+      res.error("修改失败");
+    }
+  }
+);
 
 export default router;

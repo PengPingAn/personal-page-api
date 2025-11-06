@@ -1,5 +1,5 @@
 import { Router, Request, Response } from "express";
-import { getDB } from "../db/db.ts";
+import { getDB } from "../db/db";
 import { authMiddleware } from "../middleware/authMiddleware";
 
 const router: import("express").Router = Router();

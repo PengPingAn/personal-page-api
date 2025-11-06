@@ -16,14 +16,17 @@
     "@prisma/client": "^6.18.0",
     "axios": "^1.13.1",
     "bcryptjs": "^3.0.2",
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
-    "lowdb": "^7.0.1"
+    "lowdb": "^7.0.1",
+    "redis": "^5.9.0",
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
-    "@types/express": "^5.0.5",
+    "@types/express": "^4.17.0",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/lowdb": "^2.0.3",
     "@types/node": "^24.9.2",

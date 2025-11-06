@@ -1,7 +1,8 @@
+// middleware/response.ts
 import type { Request, Response, NextFunction } from "express";
 
 export function responseEnhancer(
-  _req: Request,
+  req: Request,
   res: Response,
   next: NextFunction
 ) {

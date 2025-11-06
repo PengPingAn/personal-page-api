@@ -5,15 +5,17 @@ import articlesRouter from "./routes/articles";
 import auth from "./routes/auth";
 import jsonFile from "./routes/jsonFiles";
 import { responseEnhancer } from "./middleware/response";
+import activeRouter from "./routes/active";
+import messageRouter from "./routes/message";
 
 const app = express();
 app.use(express.json());
-app.use(responseEnhancer);
+app.use(responseEnhancer as unknown as import("express").RequestHandler);
 
 // 使用 cors 中间件
 app.use(
   cors({
-    origin: true, //["http://localhost:3000"] 允许的域名
+    origin: true, //["http://localhost:3000"] // 允许的域名
     methods: ["GET", "POST", "PUT", "DELETE"], // 允许的请求方法
     credentials: true, // 是否允许携带 cookie
     allowedHeaders: [
@@ -33,6 +35,8 @@ apiRouter.use("/personal", personalRouter);
 apiRouter.use("/articles", articlesRouter);
 apiRouter.use("/auth", auth);
 apiRouter.use("/file", jsonFile);
+apiRouter.use("/active", activeRouter);
+apiRouter.use("/message", messageRouter);
 
 // 挂载到 /api
 app.use("/api", apiRouter);
