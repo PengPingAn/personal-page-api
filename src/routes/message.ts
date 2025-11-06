@@ -1,7 +1,7 @@
 import { Router, Request, Response } from "express";
-import { getDB } from "../db/db";
-import type { Message } from "../types/message";
-import { getAvatarUrl } from "../utils/avatar";
+import { getDB } from "../db/db.js";
+import type { Message } from "../types/message.js";
+import { getAvatarUrl } from "../utils/avatar.js";
 
 const router: Router = Router();
 

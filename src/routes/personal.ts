@@ -1,6 +1,6 @@
 import { Router, Request, Response } from "express";
-import { getDB } from "../db/db";
-import { authMiddleware } from "../middleware/authMiddleware";
+import { getDB } from "../db/db.js";
+import { authMiddleware } from "../middleware/authMiddleware.js";
 
 const router: import("express").Router = Router();
 

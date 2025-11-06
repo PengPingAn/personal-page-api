@@ -2,9 +2,9 @@
 import { Router, Request, Response } from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { getDB } from "../db/db";
-import { User, Login, UserInfo, UserPwd, LoginInfo } from "../types/user"; // 引入优化后的类型
-import { authMiddleware } from "../middleware/authMiddleware";
+import { getDB } from "../db/db.js";
+import { User, Login, UserInfo, UserPwd, LoginInfo } from "../types/user.js"; // 引入优化后的类型
+import { authMiddleware } from "../middleware/authMiddleware.js";
 
 const router: Router = Router();
 const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret"; // 使用环境变量存储 JWT 密钥

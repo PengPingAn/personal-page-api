@@ -1,5 +1,5 @@
 import express from "express";
-import { activeMiddleware, redis } from "../middleware/active";
+import { activeMiddleware, redis } from "../middleware/active.js";
 
 const router: import("express").Router = express.Router();
 

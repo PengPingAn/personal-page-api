@@ -1,7 +1,7 @@
 import { Router, Request, Response } from "express";
 import { promises as fs } from "fs";
 import path from "path";
-import { authMiddleware } from "../middleware/authMiddleware";
+import { authMiddleware } from "../middleware/authMiddleware.js";
 
 const router: import("express").Router = Router();
 

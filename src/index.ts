@@ -1,12 +1,12 @@
 import express from "express";
 import cors from "cors"; // ✅ 引入 cors 包
-import personalRouter from "./routes/personal"; // 注意 .ts 或 .js
-import articlesRouter from "./routes/articles";
-import auth from "./routes/auth";
-import jsonFile from "./routes/jsonFiles";
-import { responseEnhancer } from "./middleware/response";
-import activeRouter from "./routes/active";
-import messageRouter from "./routes/message";
+import personalRouter from "./routes/personal.js"; // 注意 .ts 或 .js
+import articlesRouter from "./routes/articles.js";
+import auth from "./routes/auth.js";
+import jsonFile from "./routes/jsonFiles.js";
+import { responseEnhancer } from "./middleware/response.js";
+import activeRouter from "./routes/active.js";
+import messageRouter from "./routes/message.js";
 
 const app = express();
 app.use(express.json());
