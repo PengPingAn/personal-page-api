@@ -1,0 +1,123 @@
+[
+  {
+    "title": "爱语",
+    "value": "爱语",
+    "content": [
+      {
+        "type": "h3",
+        "text": "爱语情侣日记"
+      },
+      {
+        "type": "h3",
+        "text": "作品介绍"
+      },
+      {
+        "type": "text",
+        "text": "这是一个专为情侣打造的私密空间网站，承载了技术与情感的融合，记录彼此的回忆，分享专属的浪漫时刻。",
+        "highlight": [
+          "分享专属的浪漫时刻。"
+        ]
+      },
+      {
+        "type": "h3",
+        "text": "技术栈"
+      },
+      {
+        "type": "text",
+        "text": "前端：vue3、Pinia、Tailwind CSS、Axios、Naive UI、Markdown\n后端：.NET 8 Web API、SqlSugar、SQLite、Redis、WebSocket、Swagger"
+      },
+      {
+        "type": "h3",
+        "text": "链接"
+      },
+      {
+        "type": "text",
+        "text": "Gitee：https://gitee.com/leefugui/love-word",
+        "link": [
+          "https://gitee.com/leefugui/love-word"
+        ]
+      },
+      {
+        "type": "text",
+        "text": "Demo：https://gitee.com/leefugui/love-word",
+        "link": [
+          "https://gitee.com/leefugui/love-word"
+        ]
+      },
+      {
+        "type": "text",
+        "text": "GitHub：https://gitee.com/leefugui/love-word",
+        "link": [
+          "https://gitee.com/leefugui/love-word"
+        ]
+      }
+    ],
+    "images": [
+      "https://gitee.com/leefugui/love-world-image-service/raw/master/images/20250928/1761637973_02b813c6.png",
+      "https://gitee.com/leefugui/love-world-image-service/raw/master/images/20250928/1761637978_445146f6.png",
+      "https://gitee.com/leefugui/love-world-image-service/raw/master/images/20250928/1761637930_10d5d698.png",
+      "https://gitee.com/leefugui/love-world-image-service/raw/master/images/20250928/1761637977_21d3d117.png",
+      "https://gitee.com/leefugui/love-world-image-service/raw/master/images/20250928/1761637934_9f73266f.png",
+      "https://gitee.com/leefugui/love-world-image-service/raw/master/images/20250928/1761637975_425afe68.png",
+      "https://gitee.com/leefugui/love-world-image-service/raw/master/images/20250928/1761637935_71f6ff4c.png"
+    ]
+  },
+  {
+    "title": "个人主页",
+    "value": "个人主页",
+    "content": [
+      {
+        "type": "h3",
+        "text": "个人主页"
+      },
+      {
+        "type": "text",
+        "text": "🎉一个展示生活与技术的 个人主页，界面简洁、交互流畅。 采用Nuxt框架SEO友好，结构清晰，后端采用Node.js，数据用json文件存储，非常快捷且轻量，开箱即用",
+        "highlight": [
+          "个人主页"
+        ]
+      },
+      {
+        "type": "h3",
+        "text": "技术栈"
+      },
+      {
+        "type": "text",
+        "text": "前端：vue3、Pinia、Tailwind CSS、Axios\n后端：Node.js"
+      },
+      {
+        "type": "h3",
+        "text": "链接"
+      },
+      {
+        "type": "text",
+        "text": "Gitee：https://gitee.com/leefugui/love-word",
+        "link": [
+          "https://gitee.com/leefugui/love-word"
+        ]
+      },
+      {
+        "type": "text",
+        "text": "Demo：https://gitee.com/leefugui/love-word",
+        "link": [
+          "https://gitee.com/leefugui/love-word"
+        ]
+      },
+      {
+        "type": "text",
+        "text": "GitHub：https://gitee.com/leefugui/love-word",
+        "link": [
+          "https://gitee.com/leefugui/love-word"
+        ]
+      }
+    ],
+    "images": [
+      "https://gitee.com/leefugui/love-world-image-service/raw/master/images/20251107/eca6c79c-037c-479f-9e97-3d544c262033.png",
+      "https://gitee.com/leefugui/love-world-image-service/raw/master/images/20251107/2b22deca-2d4d-468c-a2a7-70a8cd3c4dc9.png",
+      "https://gitee.com/leefugui/love-world-image-service/raw/master/images/20251107/4f2af15c-4e0a-4350-b10a-21080dfd0795.png",
+      "https://gitee.com/leefugui/love-world-image-service/raw/master/images/20251107/5cc497b0-c165-4425-9d1a-366a69e06c16.png",
+      "https://gitee.com/leefugui/love-world-image-service/raw/master/images/20251107/ee42bd2b-409d-4dd7-8897-234824965342.png",
+      "https://gitee.com/leefugui/love-world-image-service/raw/master/images/20251107/a75ced4c-ac3c-4cf9-a968-997eddfd28e7.png"
+    ]
+  }
+]

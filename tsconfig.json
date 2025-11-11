@@ -7,8 +7,8 @@
 
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
-    "module": "nodenext",
-    "target": "esnext",
+    // "module": "nodenext",
+    // "target": "esnext",
     // "types": [],
     // For nodejs:
     // "lib": ["esnext"],
@@ -48,10 +48,15 @@
     "forceConsistentCasingInFileNames": true,
     "noEmit": false,
     "typeRoots": ["./node_modules/@types", "./types"],
-    "types": []
+    "types": [],
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "target": "ESNext"
   },
   "include": ["src/**/*", "types/**/*"],
   "ts-node": {
-    "files": true // 增加这一条配置即可，其他同默认配置
-  }
+    "files": true, // 增加这一条配置即可，其他同默认配置
+    "esm": true
+  },
+  "type": "module"
 }

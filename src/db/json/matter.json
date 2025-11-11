@@ -1,0 +1,52 @@
+[
+  {
+    "year": "2025",
+    "data": [
+      {
+        "label": "写一篇技术文章",
+        "status": true,
+        "completionTime": "2025-10-27"
+      },
+      {
+        "label": "整理笔记",
+        "status": true,
+        "completionTime": "2025-05-27"
+      },
+      {
+        "label": "涨薪2000！！！",
+        "status": false,
+        "completionTime": ""
+      },
+      {
+        "label": "完成一个个人项目",
+        "status": true,
+        "completionTime": "2025-10-01"
+      },
+      {
+        "label": "提高前后端技术，学习新技术",
+        "status": false,
+        "completionTime": ""
+      }
+    ]
+  },
+  {
+    "year": "2024",
+    "data": [
+      {
+        "label": "111111111111111111",
+        "status": false,
+        "completionTime": "2025-10-27"
+      },
+      {
+        "label": "测试测试测试测试测试",
+        "status": true,
+        "completionTime": "2025-05-27"
+      },
+      {
+        "label": "换一台电脑",
+        "status": false,
+        "completionTime": ""
+      }
+    ]
+  }
+]

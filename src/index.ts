@@ -6,7 +6,7 @@ import auth from "./routes/auth.js";
 import jsonFile from "./routes/jsonFiles.js";
 import { responseEnhancer } from "./middleware/response.js";
 import activeRouter from "./routes/active.js";
-import messageRouter from "./routes/message.js";
+import homeRouter from "./routes/home.js";
 
 const app = express();
 app.use(express.json());
@@ -36,7 +36,7 @@ apiRouter.use("/articles", articlesRouter);
 apiRouter.use("/auth", auth);
 apiRouter.use("/file", jsonFile);
 apiRouter.use("/active", activeRouter);
-apiRouter.use("/message", messageRouter);
+apiRouter.use("/home", homeRouter);
 
 // 挂载到 /api
 app.use("/api", apiRouter);
