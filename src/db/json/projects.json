@@ -83,7 +83,7 @@
       },
       {
         "type": "text",
-        "text": "前端：vue3、Pinia、Tailwind CSS、Axios\n后端：Node.js"
+        "text": "前端：Nuxt、vue3、Pinia、Tailwind CSS、Axios\n后端：Node.js"
       },
       {
         "type": "h3",
@@ -91,9 +91,9 @@
       },
       {
         "type": "text",
-        "text": "Gitee：https://gitee.com/leefugui/love-word",
+        "text": "Gitee：https://gitee.com/leefugui/personal-page",
         "link": [
-          "https://gitee.com/leefugui/love-word"
+          "https://gitee.com/leefugui/personal-page"
         ]
       },
       {

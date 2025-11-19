@@ -1,10 +1,43 @@
 {
-  "name": "平安",
-  "bio": "喜欢 Vue 3 和 C#",
-  "projects": [
+  "name": "<平安/>",
+  "occupation": "开发者",
+  "headUrl": "https://gitee.com/leefugui/love-world-image-service/raw/master/images/20250928/1760522936_bb6d63b9.jpg",
+  "job": {
+    "desc": "一位热爱生活的",
+    "item": [
+      "创造者",
+      "全栈开发者",
+      "设计者"
+    ]
+  },
+  "introduction": "我是一名全栈开发者，喜欢用代码和设计搭建小而美的产品。\n对新技术充满好奇，也常在探索中学习，希望能和大家一起进步。",
+  "contact": [
     {
-      "title": "个人主页",
-      "link": "https://personal-page-pied-omega.vercel.app/"
+      "icon": "simple-icons--gitee",
+      "label": "Gitee",
+      "url": "https://gitee.com/leefugui"
+    },
+    {
+      "icon": "streamline-ultimate-color--send-email-envelope",
+      "label": "Email",
+      "url": "256260842@qq.com"
+    },
+    {
+      "icon": "la--blog",
+      "label": "Blog",
+      "url": "https://gitee.com/leefugui"
     }
-  ]
+  ],
+  "location": {
+    "country": "中国",
+    "city": "广州市",
+    "region": "天河区",
+    "motto": "纵有疾风起\n人生不言弃",
+    "bgImg": "https://q0.itc.cn/q_70/images03/20251001/344ea6c5614f4fb4b6930d0c4d779e1f.jpeg"
+  },
+  "sponsorshipUrls": [
+    "https://q3.itc.cn/q_70/images03/20250126/12f61998eb564230b87a6b08554284c6.jpeg",
+    "https://q2.itc.cn/q_70/images03/20251026/b23d29d9d1674d40985c99f7bc01162c.jpeg"
+  ],
+  "particleImage": "https://img2.baidu.com/it/u=119787490,3418968819&fm=253&app=138&f=JPEG?w=800&h=1584"
 }

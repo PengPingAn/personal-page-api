@@ -1,0 +1,28 @@
+{
+  "mbti": "INFJ",
+  "name": "提倡者",
+  "description": "内向、理想主义，善于理解他人，追求精神世界。",
+  "imgUrl": "https://liuyuyang.net/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FINFJ.aec7e324.png&w=640&q=75",
+  "data": [
+    {
+      "label": "I/E",
+      "value": 90,
+      "tooltip": "倾向内向 (I) 与外向 (E) 的差异"
+    },
+    {
+      "label": "N/S",
+      "value": 80,
+      "tooltip": "直觉 (N) 与感官 (S) 的差异"
+    },
+    {
+      "label": "F/T",
+      "value": 70,
+      "tooltip": "情感 (F) 与思考 (T) 的差异"
+    },
+    {
+      "label": "J/P",
+      "value": 60,
+      "tooltip": "判断 (J) 与知觉 (P) 的差异"
+    }
+  ]
+}

@@ -5,6 +5,9 @@ import type { Message } from "../types/message.js";
 import { getAvatarUrl } from "../utils/avatar.js";
 import { getDB } from "../db/db.js";
 import { YearlyGoals } from "../types/matter.js";
+import { UserProfile } from "../types/personal.js";
+import { MBTICharacter } from "../types/MBTI.js";
+import { Photo } from "../types/photos.js";
 
 const router: import("express").Router = Router();
 
@@ -84,6 +87,47 @@ router.get("/get_matter_list", async (_req: Request, res: Response) => {
     console.error(err);
     res.error("获取消息列表失败");
   }
+});
+
+/**
+ * 获取主页用户信息
+ */
+router.get("/get_personal", async (_req: Request, res: Response) => {
+  const defaults: UserProfile = {
+    name: "",
+    occupation: "",
+    job: { desc: "", item: [] },
+    introduction: "",
+    contact: [],
+    location: { country: "", city: "", region: "", Motto: "" },
+    sponsorshipUrls: [],
+    particleImage: "",
+  };
+  const db = await getDB<UserProfile>("personal", defaults);
+  res.success(db.data); // 这里仍然能用 success
+});
+
+router.get("/get_MBTI", async (_req: Request, res: Response) => {
+  const defaults: MBTICharacter = {
+    mbti: "",
+    name: "",
+    description: "",
+    imgUrl: "",
+    data: [],
+  };
+  const db = await getDB<MBTICharacter>("MBTICharacter", defaults);
+  res.success(db.data); // 这里仍然能用 success
+});
+
+router.get("/get_photos", async (_req: Request, res: Response) => {
+  const defaults: Photo[] = [
+    {
+      title: "",
+      img: "",
+    },
+  ];
+  const db = await getDB<Photo[]>("photos", defaults);
+  res.success(db.data); // 这里仍然能用 success
 });
 
 export default router;
