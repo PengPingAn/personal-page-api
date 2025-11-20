@@ -102,6 +102,8 @@ router.get("/get_personal", async (_req: Request, res: Response) => {
     location: { country: "", city: "", region: "", Motto: "" },
     sponsorshipUrls: [],
     particleImage: "",
+    rss: "",
+    skills: [],
   };
   const db = await getDB<UserProfile>("personal", defaults);
   res.success(db.data); // 这里仍然能用 success
