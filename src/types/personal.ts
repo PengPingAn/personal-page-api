@@ -25,4 +25,6 @@ export interface UserProfile {
   location: Location;
   sponsorshipUrls: string[];
   particleImage: string;
+  skills: string[];
+  rss: string;
 }

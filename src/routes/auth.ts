@@ -1,9 +1,8 @@
-// userRouter.ts
 import { Router, Request, Response } from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { getDB } from "../db/db.js";
-import { User, Login, UserInfo, UserPwd, LoginInfo } from "../types/user.js"; // 引入优化后的类型
+import { User, Login, UserInfo, UserPwd } from "../types/user.js";
 import { authMiddleware } from "../middleware/authMiddleware.js";
 
 const router: Router = Router();
@@ -16,7 +15,6 @@ router.post("/login", async (req: Request, res: Response) => {
 
     if (!account || !password) return res.error("用户名和密码不能为空");
 
-    // 获取用户数据
     const db = await getDB<Login>("user", {
       account: "",
       password: "",
@@ -30,24 +28,20 @@ router.post("/login", async (req: Request, res: Response) => {
     const match = await bcrypt.compare(password, db.data!.password);
     if (!match) return res.error("密码错误");
 
-    // 获取客户端 IP 和当前时间
     const xForwardedFor = req.headers["x-forwarded-for"];
     const ip =
       (Array.isArray(xForwardedFor)
         ? xForwardedFor[0]
         : xForwardedFor?.split(",")[0]) ||
-      req.connection?.remoteAddress ||
-      req.socket?.remoteAddress;
+      req.socket?.remoteAddress ||
+      "";
 
     const currentTime = new Date().toISOString();
 
-    // 更新登录信息
     db.data!.lastIp = ip as string;
     db.data!.lastTime = currentTime;
     await db.write();
 
-    const head = db.data!.head;
-    // 生成 JWT Token
     const token = jwt.sign({ userInfo: db.data }, JWT_SECRET, {
       expiresIn: "7d",
     });
@@ -55,7 +49,7 @@ router.post("/login", async (req: Request, res: Response) => {
     res.success({
       token,
       account,
-      head,
+      head: db.data!.head,
     });
   } catch (err) {
     console.error(err);
@@ -64,9 +58,8 @@ router.post("/login", async (req: Request, res: Response) => {
 });
 
 // --- 获取当前用户信息 ---
-router.get("/me", authMiddleware, async (req: Request, res: Response) => {
+router.get("/me", authMiddleware, async (_req: Request, res: Response) => {
   try {
-    // 获取用户数据（假设 JSON 文件存储用户信息在 "user"）
     const db = await getDB<User>("user", {
       account: "admin",
       head: "",
@@ -78,7 +71,6 @@ router.get("/me", authMiddleware, async (req: Request, res: Response) => {
 
     if (!db.data) return res.error("用户不存在");
 
-    // 只取 User 需要的字段
     const userInfo: User = {
       account: db.data.account,
       head: db.data.head,
@@ -136,7 +128,6 @@ router.post(
         nickName: "",
       });
 
-      // 更新用户信息
       db.data!.account = account;
       db.data!.email = email;
       db.data!.head = head;

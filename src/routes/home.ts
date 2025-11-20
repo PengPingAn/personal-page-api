@@ -8,11 +8,16 @@ import { YearlyGoals } from "../types/matter.js";
 import { UserProfile } from "../types/personal.js";
 import { MBTICharacter } from "../types/MBTI.js";
 import { Photo } from "../types/photos.js";
+import { fileURLToPath } from "url";
 
 const router: import("express").Router = Router();
 
+// 当前文件绝对路径（ESM 下 __dirname 替代）
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 // JSON 文件所在目录
-const jsonDir = path.resolve("./src/db/json");
+const jsonDir = path.join(__dirname, "../db/json");
 
 /**
  * 获取作品集
@@ -20,7 +25,6 @@ const jsonDir = path.resolve("./src/db/json");
 router.get("/get_projects", async (req: Request, res: Response) => {
   try {
     const fileName = "projects.json";
-
     const filePath = path.join(jsonDir, fileName);
     const content = await fs.readFile(filePath, "utf-8");
     res.success(JSON.parse(content));
@@ -36,8 +40,6 @@ router.get("/get_projects", async (req: Request, res: Response) => {
 router.get("/get_message_list", async (_req: Request, res: Response) => {
   try {
     const db = await getDB<Message[]>("message", []); // 直接指定返回类型为对象数组
-
-    // 数据已经是对象数组了，可以直接返回
     res.success(db.data);
   } catch (err) {
     console.error(err);
@@ -80,8 +82,6 @@ router.post("/add_message", async (req: Request, res: Response) => {
 router.get("/get_matter_list", async (_req: Request, res: Response) => {
   try {
     const db = await getDB<YearlyGoals[]>("matter", []); // 直接指定返回类型为对象数组
-
-    // 数据已经是对象数组了，可以直接返回
     res.success(db.data);
   } catch (err) {
     console.error(err);
@@ -116,9 +116,12 @@ router.get("/get_MBTI", async (_req: Request, res: Response) => {
     data: [],
   };
   const db = await getDB<MBTICharacter>("MBTICharacter", defaults);
-  res.success(db.data); // 这里仍然能用 success
+  res.success(db.data);
 });
 
+/**
+ * 获取相册
+ */
 router.get("/get_photos", async (_req: Request, res: Response) => {
   const defaults: Photo[] = [
     {
@@ -127,7 +130,7 @@ router.get("/get_photos", async (_req: Request, res: Response) => {
     },
   ];
   const db = await getDB<Photo[]>("photos", defaults);
-  res.success(db.data); // 这里仍然能用 success
+  res.success(db.data);
 });
 
 export default router;

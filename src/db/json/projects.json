@@ -98,16 +98,16 @@
       },
       {
         "type": "text",
-        "text": "Demo：https://gitee.com/leefugui/love-word",
+        "text": "Demo：https://personal-page-pied-omega.vercel.app",
         "link": [
-          "https://gitee.com/leefugui/love-word"
+          "https://personal-page-pied-omega.vercel.app"
         ]
       },
       {
         "type": "text",
-        "text": "GitHub：https://gitee.com/leefugui/love-word",
+        "text": "GitHub：https://github.com/PengPingAn/personal-page.git",
         "link": [
-          "https://gitee.com/leefugui/love-word"
+          "https://github.com/PengPingAn/personal-page.git"
         ]
       }
     ],

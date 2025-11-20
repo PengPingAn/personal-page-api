@@ -7,6 +7,7 @@ import jsonFile from "./routes/jsonFiles.js";
 import { responseEnhancer } from "./middleware/response.js";
 import activeRouter from "./routes/active.js";
 import homeRouter from "./routes/home.js";
+import rssRouter from "./routes/rss.js";
 
 const app = express();
 app.use(express.json());
@@ -37,6 +38,7 @@ apiRouter.use("/auth", auth);
 apiRouter.use("/file", jsonFile);
 apiRouter.use("/active", activeRouter);
 apiRouter.use("/home", homeRouter);
+apiRouter.use("/rss", rssRouter);
 
 // 挂载到 /api
 app.use("/api", apiRouter);

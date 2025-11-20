@@ -1,23 +1,54 @@
 import { Router, Request, Response } from "express";
-import { getDB } from "../db/db.js";
+import fs from "fs";
+import path from "path";
 import type { Message } from "../types/message.js";
 import { getAvatarUrl } from "../utils/avatar.js";
 
 const router: Router = Router();
 
-router.get("/get_message_list", async (_req: Request, res: Response) => {
-  try {
-    const db = await getDB<Message[]>("message", []); // 直接指定返回类型为对象数组
+// JSON 文件路径
+const DATA_DIR = path.resolve("./db");
+const FILE_PATH = path.join(DATA_DIR, "message.json");
 
-    // 数据已经是对象数组了，可以直接返回
-    res.success(db.data);
+// 队列控制写入，防止并发覆盖
+let writeQueue: (() => Promise<void>)[] = [];
+let writing = false;
+
+async function processQueue() {
+  if (writing || writeQueue.length === 0) return;
+  writing = true;
+  const fn = writeQueue.shift()!;
+  try {
+    await fn();
+  } catch (err) {
+    console.error("写入队列出错:", err);
+  }
+  writing = false;
+  processQueue(); // 处理下一个
+}
+
+// 确保文件存在
+function ensureFile(): Message[] {
+  if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
+  if (!fs.existsSync(FILE_PATH))
+    fs.writeFileSync(FILE_PATH, JSON.stringify([]));
+  const raw = fs.readFileSync(FILE_PATH, "utf-8");
+  return JSON.parse(raw) as Message[];
+}
+
+// GET 留言列表
+router.get("/get_message_list", (_req: Request, res: Response) => {
+  try {
+    const db = ensureFile();
+    res.success(db);
   } catch (err) {
     console.error(err);
     res.error("获取消息列表失败");
   }
 });
 
-router.post("/add_message", async (req: Request, res: Response) => {
+// POST 新增留言
+router.post("/add_message", (req: Request, res: Response) => {
   try {
     const { nickName, email, content } = req.body;
     if (!nickName || !content) return res.error("昵称和内容不能为空");
@@ -30,11 +61,22 @@ router.post("/add_message", async (req: Request, res: Response) => {
     const createTime = new Date().toISOString();
     const headUrl = getAvatarUrl(email);
 
-    const db = await getDB<Message[]>("message", []);
-    const newMsg = { nickName, email, content, createTime, ip, headUrl };
+    const newMsg: Message = {
+      nickName,
+      email,
+      content,
+      createTime,
+      ip,
+      headUrl,
+    };
 
-    db.data!.push(newMsg);
-    await db.write();
+    // 入队写入
+    writeQueue.push(async () => {
+      const db = ensureFile();
+      db.push(newMsg);
+      fs.writeFileSync(FILE_PATH, JSON.stringify(db, null, 2), "utf-8");
+    });
+    processQueue();
 
     res.success(newMsg);
   } catch (err) {
