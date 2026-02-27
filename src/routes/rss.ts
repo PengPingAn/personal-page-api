@@ -12,6 +12,7 @@ interface CacheEntry {
 }
 const rssCache: Record<string, CacheEntry> = {};
 const CACHE_TTL = 5 * 60 * 1000; // 5 分钟
+let isFetching = false;
 
 router.get("/", async (req, res) => {
   const url = req.query.url as string;
@@ -24,7 +25,15 @@ router.get("/", async (req, res) => {
     return res.success(cached.data);
   }
 
+  // 如果缓存失效并且有请求正在获取数据，则等待
+  if (isFetching) {
+    return res
+      .status(503)
+      .json({ error: "Service is fetching the RSS, please try again later." });
+  }
+
   try {
+    isFetching = true;
     const feed = await parser.parseURL(url);
 
     const posts = feed.items.map((item) => ({
@@ -43,9 +52,16 @@ router.get("/", async (req, res) => {
     rssCache[url] = { data, timestamp: now };
 
     res.success(data);
-  } catch (err) {
-    res.status(500).json({ error: "Failed to fetch RSS", details: err });
+  } catch (err: any) {
+    const errorMessage = err.message || "Failed to fetch RSS";
+    console.error(errorMessage, err);
+
+    res.status(500).json({
+      error: errorMessage,
+      details: err.stack || err,
+    });
+  } finally {
+    isFetching = false;
   }
 });
-
 export default router;
